@@ -1,26 +1,26 @@
-@primes = Array.new
-@seive = Array.new
-@current_eval = 2
+
 
 def get_primes_for(n)
-  while (@current_eval <= n)
-    if (@seive[@current_eval].nil?) then
-      puts "adding prime " + @current_eval.to_s
-      @primes.push(@current_eval)
-      (@current_eval**2..n).step(@current_eval) { |c|
-        @seive[c] = true
+  primes = Array.new
+  seive = Array.new
+  current_eval = 2
+  while (current_eval <= n)
+    if (seive[current_eval].nil?) then
+      puts "adding prime " + current_eval.to_s
+      primes.push(current_eval)
+      (current_eval**2..n).step(current_eval) { |c|
+        seive[c] = true
       }
     end
-    @current_eval += 1
+    current_eval += 1
   end
-  @primes
+  primes
 end
 
 def count_divisors (n)
   return n unless n > 2
-  if (@primes.length == 0)
-    @primes = get_primes_for(10000000)
-  end
+  @primes ||= get_primes_for(10000)
+
   prime_factors = Hash.new
   @primes.each { |p|
     while (p <= n && n % p == 0)
@@ -43,7 +43,6 @@ current_triangle_number = 0
 counter = 0
 
 target = 500
-#54147621
 while (true)
   divisor_count = 0
   counter += 1
